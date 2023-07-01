@@ -19,3 +19,14 @@ require __DIR__ . '/../vendor/autoload.php';
 //    echo $customerArchived->getCustomerId()->getId();
 //    echo $customerArchived->getCustomerId()->getId();
 //}
+
+$query = (new \App\Customer\Infrastructure\Database\QueryBuilder())
+    ->select()
+    ->from('users')
+//    ->where('AnD', ['id', '=', '?'], 2)
+    ->where('Or', ['id', '=', '?'], 2,4)
+    ->limit()
+    ->offset()
+    ->get();
+
+print_r($query);
