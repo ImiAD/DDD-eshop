@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Customer\Collection;
+namespace App\Customer\Collections;
 
 use App\Customer\Collections\Phones;
 use App\Customer\Domain\Model\ValueObjects\Phone;
@@ -13,7 +13,7 @@ class PhonesTest extends TestCase
     {
         $phones = new Phones([
             $phone1 = new Phone(7, '921', '000001'),
-            $phone2 =new Phone(7, '922', '000002'),
+            $phone2 = new Phone(7, '922', '000002'),
         ]);
 
         $this->assertInstanceOf(Phones::class, $phones);

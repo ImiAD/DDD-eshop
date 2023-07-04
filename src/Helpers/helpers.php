@@ -31,3 +31,10 @@ if (!function_exists('getClassName')) {
         return end($parts);
     }
 }
+
+if (!function_exists('lower')) {
+    function lower(string $data): string
+    {
+        return \mb_strtolower($data);
+    }
+}

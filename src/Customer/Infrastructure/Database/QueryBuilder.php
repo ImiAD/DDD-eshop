@@ -5,11 +5,12 @@ namespace App\Customer\Infrastructure\Database;
 
 class QueryBuilder
 {
+    private array $select = [];
     private string $table;
-    private array $fields = ['*'];
-    private array $where = [];
-    private array $params = [];
-    private string $operand = '';
+    private array $where = [
+        'where' => [],
+        'orWhere' => [],
+    ];
     private int $limit;
     private int $offset = 0;
     private array $orderBy = [];
@@ -41,13 +42,10 @@ class QueryBuilder
         return $value;
     }
 
-    public function select(...$item): static
+    public function select(array|string $columns = ['*']): static
     {
-        if ($item) {
-            $this->fields = (\count($item) !== \count($item, COUNT_RECURSIVE))
-                ? \array_merge(...$item)
-                : $item;
-        }
+        $args = is_array($columns) ? $columns : func_get_args();
+        $this->select = $args;
 
         return $this;
     }
@@ -63,108 +61,52 @@ class QueryBuilder
         return $this;
     }
 
-    public function where(string $operand, array $condition, mixed ...$param): static
+    public function where($callable): static
     {
-        if (!$condition) {
-            throw new \InvalidArgumentException('Недопустимый аргумент условия');
+        if (is_callable($callable)) {
+            $callable($this);
+        } else {
+            $args = is_array($callable) ? $callable : func_get_args();
+            $this->addWhere($args);
         }
 
-        $this->params = (\count($param) !== \count($param, COUNT_RECURSIVE))
-            ? \array_merge(...$param)
-            : $param;
-        $this->where[] = array_merge($condition, $this->params);
-
-        if (!$operand) {
-            throw new \InvalidArgumentException('Операнд нее передан!');
-        }
-
-        $this->operand = $operand;
-
         return $this;
     }
 
-    // Нет ли тут логической ошибки?
-    public function limit(int $limit = 0): static
+//    public function orWhere(array|string $columns = []): static
+//    {
+//        $args = is_array($columns) ? $columns : func_get_args();
+//
+//        return $this;
+//    }
+
+    public function addWhere(string $key, array $args): void
     {
-        $this->limit = $limit ?? $this->limit;
-
-        return $this;
+        $this->where[$key][] = [
+            'column' => $args[0],
+            'operator' => empty($args[2]) ? '=' : $args[1],
+            'value' => $args[2] ?? $args[1],
+        ];
     }
 
-    public function offset(int $offset = 0): static
-    {
-        $this->offset = $offset ?? $this->offset;
-
-        return $this;
-    }
+//    public function limit(int $limit = 0): static
+//    {
+//        $this->limit = $limit;
+//
+//        return $this;
+//    }
+//
+//    public function offset(int $offset = 0): static
+//    {
+//        $this->offset = $offset;
+//
+//        return $this;
+//    }
 
     public function get()
     {
-        $query = 'SELECT ' . \implode(', ', $this->fields);
-        $query .= ' FROM ' . $this->table;
-
-        if (!empty($this->where)) {
-            $query .= ' WHERE ';
-            $query .=  match (\mb_strtolower($this->operand)) {
-                'and' => $this->andWhere(),
-                'or' => $this->orWhere(),
-                default => throw new \InvalidArgumentException('Что-то пошло не так c операндом!!!'),
-            };
-        }
-
-        if (!empty($this->limit)) {
-            $query .= ' LIMIT ' . $this->limit;
-        }
-
-        if (!empty($this->limit) && !empty($this->offset)) {
-            $query .= ' OFFSET ' . $this->offset;
-        }
-
-        $sth = $this->dbh->prepare($query);
-        $sth->execute($this->params);
-//        return $sth->fetchAll();
-        return $sth->fetchAll() ?: 'По вашему запросу ничего не найдено.';
-
-        // А почему после return мы прописываем очистку полей, ведь return завершает выполнение функции?
-        echo PHP_EOL;
+        print_r($this->select);
         print_r($this->table);
-        echo PHP_EOL;
-        \print_r($this->fields);
-        echo PHP_EOL;
-        \print_r($this->where);
-        echo PHP_EOL;
-        echo $query;
-
-        $this->table = '';
-        $this->fields = [];
-        $this->where = [];
-        $this->limit = 0;
-        $this->offset = 0;
-        $this->params = [];
-        $this->operand = '';
-
+        print_r($this->where);
     }
-
-    private function andWhere(): string
-    {
-        $q = '';
-
-        foreach ($this->where as $item) {
-            $q = " AND {$item[0]}{$item[1]}{$item[2]}";
-        }
-
-        return \ltrim($q, ' AND ');
-    }
-
-    private function orWhere(): string
-    {
-        $q = '';
-
-        foreach ($this->where as $item) {
-            $q = "{$item[0]}{$item[1]}{$item[2]} OR {$item[0]}{$item[1]}{$item[2]}";
-        }
-
-        return $q;
-    }
-
 }

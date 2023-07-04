@@ -23,9 +23,9 @@ require __DIR__ . '/../vendor/autoload.php';
 $query = (new \App\Customer\Infrastructure\Database\QueryBuilder())
     ->select()
     ->from('users')
-//    ->where('AnD', ['id', '=', '?'], 2)
+    ->where('AnD', ['id', '=', '?'], 2)
     ->where('Or', ['id', '=', '?'], 2,4)
-    ->limit()
+    ->limit(100)
     ->offset()
     ->get();
 
