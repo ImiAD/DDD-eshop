@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Manager\Contracts;
+namespace App\Manager\Domain\Model\Aggregates;
+
+use App\Manager\Contracts\DomainEvent;
 
 abstract class AggregateRoot
 {

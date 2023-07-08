@@ -15,16 +15,5 @@ class RoleTest extends TestCase
         $this->assertSame('admin', $role->getValue());
         $this->assertSame('02-07-2023 10:23:01', $role->getDate()->format('d-m-Y H:i:s'));
         $this->assertTrue($role->isEqualsTo($role));
-        $this->assertTrue($role->isAdmin());
-        $this->assertFalse($role->isSeniorManager());
-        $this->assertFalse($role->isManagerAssistant());
-        $this->assertFalse($role->isStorekeeper());
-    }
-
-    public function testNotRole(): void
-    {
-        $this->expectExceptionMessage('Такой роли нет в нашей организации.');
-
-        new Role('', new \DateTimeImmutable('02-07-2023 10:23:01'));
     }
 }

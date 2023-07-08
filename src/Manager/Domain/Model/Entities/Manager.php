@@ -12,7 +12,7 @@ use App\Manager\Application\Events\ManagerRemoved;
 use App\Manager\Application\Events\ManagerRename;
 use App\Manager\Application\Events\ManagerRoleChanged;
 use App\Manager\Collections\Phones;
-use App\Manager\Contracts\AggregateRoot;
+use App\Manager\Domain\Model\Aggregates\AggregateRoot;
 use App\Manager\Domain\Model\ValueObjects\Address;
 use App\Manager\Domain\Model\ValueObjects\Date;
 use App\Manager\Domain\Model\ValueObjects\ManagerId;

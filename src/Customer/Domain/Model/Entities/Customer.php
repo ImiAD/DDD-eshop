@@ -11,7 +11,7 @@ use App\Customer\Application\Events\CustomerReinstate;
 use App\Customer\Application\Events\CustomerRemoved;
 use App\Customer\Application\Events\CustomerRename;
 use App\Customer\Collections\Phones;
-use App\Customer\Contracts\AggregateRoot;
+use App\Customer\Domain\Model\Aggregates\AggregateRoot;
 use App\Customer\Domain\Model\ValueObjects\Address;
 use App\Customer\Domain\Model\ValueObjects\CustomerId;
 use App\Customer\Domain\Model\ValueObjects\Date;
