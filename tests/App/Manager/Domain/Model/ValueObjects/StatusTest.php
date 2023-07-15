@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Manager\Domain\Model\ValueObjects;
 
+use App\Modules\Manager\Domain\Model\ValueObjects\Status;
 use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase

@@ -1,18 +1,25 @@
 <?php
 
 if (!function_exists('dd')) {
-    function dd(mixed $data): never
+    function dd(mixed $data, bool $die = false): void
     {
         echo '<pre>'; print_r($data); echo '</pre>';
-        die;
+
+        if ($die) {
+            die;
+        }
+
     }
 }
 
 if (!function_exists('dump')) {
-    function dump(mixed $data): never
+    function dump(mixed $data, bool $die = false): void
     {
         echo '<pre>'; var_dump($data); echo '</pre>';
-        die;
+
+        if ($die) {
+            die;
+        }
     }
 }
 

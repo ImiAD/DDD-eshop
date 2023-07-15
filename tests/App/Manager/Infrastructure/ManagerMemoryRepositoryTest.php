@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace App\Manager\Infrastructure;
 
-use App\Manager\Domain\Model\Entities\Manager;
-use App\Manager\Domain\Model\ValueObjects\Address;
-use App\Manager\Domain\Model\ValueObjects\Date;
-use App\Manager\Domain\Model\ValueObjects\ManagerId;
-use App\Manager\Domain\Model\ValueObjects\Name;
-use App\Manager\Domain\Model\ValueObjects\Phone;
-use App\Manager\Domain\Model\ValueObjects\Role;
-use App\Manager\Infrastructure\Memory\MemoryManagerRepository;
+use App\Modules\Manager\Domain\Model\Entities\Manager;
+use App\Modules\Manager\Domain\Model\ValueObjects\Address;
+use App\Modules\Manager\Domain\Model\ValueObjects\Date;
+use App\Modules\Manager\Domain\Model\ValueObjects\ManagerId;
+use App\Modules\Manager\Domain\Model\ValueObjects\Name;
+use App\Modules\Manager\Domain\Model\ValueObjects\Phone;
+use App\Modules\Manager\Domain\Model\ValueObjects\Role;
+use App\Modules\Manager\Infrastructure\Memory\MemoryManagerRepository;
 use PHPUnit\Framework\TestCase;
 
 class ManagerMemoryRepositoryTest extends TestCase

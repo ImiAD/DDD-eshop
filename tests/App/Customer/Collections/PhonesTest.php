@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace App\Customer\Collections;
 
-use App\Customer\Collections\Phones;
-use App\Customer\Domain\Model\ValueObjects\Phone;
+use App\Modules\Customer\Collections\Phones;
+use App\Modules\Customer\Domain\Model\ValueObjects\Phone;
 use PHPUnit\Framework\TestCase;
 
 class PhonesTest extends TestCase
 {
     public function testCanCreate(): void
     {
-        $phones = new Phones([
+        $phones = new \App\Modules\Customer\Collections\Phones([
             $phone1 = new Phone(7, '921', '000001'),
             $phone2 = new Phone(7, '922', '000002'),
         ]);

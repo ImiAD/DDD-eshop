@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace App\Customer\Domain\Model\Entities;
 
-use App\Customer\Application\Events\CustomerCreated;
-use App\Customer\Domain\Model\ValueObjects\Address;
-use App\Customer\Domain\Model\ValueObjects\CustomerId;
-use App\Customer\Domain\Model\ValueObjects\Date;
-use App\Customer\Domain\Model\ValueObjects\Name;
-use App\Customer\Domain\Model\ValueObjects\Phone;
+use App\Modules\Customer\Application\Events\CustomerCreated;
+use App\Modules\Customer\Domain\Model\Entities\Customer;
+use App\Modules\Customer\Domain\Model\ValueObjects\Address;
+use App\Modules\Customer\Domain\Model\ValueObjects\CustomerId;
+use App\Modules\Customer\Domain\Model\ValueObjects\Date;
+use App\Modules\Customer\Domain\Model\ValueObjects\Name;
+use App\Modules\Customer\Domain\Model\ValueObjects\Phone;
 use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase

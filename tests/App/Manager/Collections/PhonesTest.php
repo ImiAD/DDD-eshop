@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Manager\Collections;
 
-use App\Manager\Domain\Model\ValueObjects\Phone;
+use App\Modules\Manager\Collections\Phones;
+use App\Modules\Manager\Domain\Model\ValueObjects\Phone;
 use PHPUnit\Framework\TestCase;
 
 class PhonesTest extends TestCase
